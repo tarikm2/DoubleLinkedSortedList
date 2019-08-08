@@ -1,0 +1,26 @@
+{
+  "name": "double_linked_sorted_list",
+  "version": "1.0.0",
+  "description": "An example of a sorted, doubly linked list in node",
+  "main": "double_linked_sorted_list.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarikm2/DoubleLinkedSortedList.git"
+  },
+  "author": "Tarik Merzouk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarikm2/DoubleLinkedSortedList/issues"
+  },
+  "homepage": "https://github.com/tarikm2/DoubleLinkedSortedList#readme"
+}

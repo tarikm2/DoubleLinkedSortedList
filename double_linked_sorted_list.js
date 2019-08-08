@@ -1,7 +1,8 @@
+let { ListNode } = require('./list_node');
 
 class LinkedList {
 	constructor (head) {
-		if(!(head instanceof Node) {
+		if(!(head instanceof ListNode)) {
 			throw new Error('cannot instantiate without a head node');
 		}
 		this.head = head;
@@ -41,20 +42,31 @@ class LinkedList {
 	}
 
 	deleteValue(toDelete) {
-                if(this.compareTo(toDelete) === 0) {
-                        // delete this.head
+                if(this.head.compareTo(toDelete) === 0) {
+			if(this.length === 1) {
+				// reassign tail
+				// delete tail
+			}
+			// reassign head
+                        // delete head
                 }
+		else if (this.tail.compareTo(toDelete) === 0) {
+			// delete this.tail
+			// reassign tail to tail.prev
+		}
 		else {
-
 			let indexToDelete = this._getIndex(toDelte);
 			let ref = this.head;
  			if (indexToDelete === -1) {
-				// no value to delete
 				return;
+			}
+			else if (indexToDelete === 0) {
+				// delete head
 			}
 			else if (indexToDelete === this.length - 1) {
 				// delete tail
 			}
+
 			for(let i = 0; i <= indexToDelete; i++) {
 				ref = ref.next;
 			}
@@ -65,21 +77,33 @@ class LinkedList {
 		}
 		this.length--;
 	}
-dfasdf
 
-	// this could be more efficient by using a binary seay
+	// this could be more efficient by using a binary search
 	_getIndex (node) {
-                let ref = this.head;
-		let index = 0;
-                while (ref.next && ref.compareTo(node) < 0) {
-                        ref = ref.next;
-			index++;
-                }
-		
-		if(!ref.next && ref.compareTo(toInsert) < 0) {
+		// if node value is less than head or greater than tail, it isn't in the list.
+                let headCompareVal = this.head.compareTo(node);
+		let tailCompareVal = this.tail.compareTo(node) ;
+
+		if(headCompareVal > 0) {
 			return -1;
 		}
-
+		if(tailCompareVal < 0) {
+			return -1;
+		}
+		if(headCompareVal === 0) {
+			return 0;
+		}
+		// using this get index during insert will cause unstable sorting, since we will insert at the end of similar value runs in the case that tailCompareVal === 0
+		if(tailCompareVal === 0) {
+			return this.length - 1;
+		}
+		
+		let ref = this.head;
+		let index = 0;
+		while (ref.compareTo(node) < 0) {
+                        ref = ref.next;
+			index++;
+                }	
 		return index;
 	}
 
