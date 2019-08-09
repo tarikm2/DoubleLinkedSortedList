@@ -70,7 +70,6 @@ describe('doubly linked sorted list', () => {
 			let list = makeList();
 			let toSearch = new ListNode(1);
 			let index = list._getIndex(toSearch);
-			console.log('actual is', index);
 			expect(index).to.equal(0);
 		});
 
@@ -106,15 +105,65 @@ describe('doubly linked sorted list', () => {
 	});
 
 	describe('insert an item into the list', () => {
-		it('should insert an item at the beginning of the list', () => {
 
+		it('should insert an item at the beginning of a list of length 1', () => {
+			let list = new LinkedList(new ListNode(1));
+			let previousLength = list.length;
+			let previousHead = list.head;
+
+			let toInsert = new ListNode(0);
+			list.insert(toInsert);
+
+			expect(list.tail).to.equal(previousHead);
+			expect(list.head).to.equal(toInsert);
+			expect(list.head.next).to.equal(previousHead);
+			expect(list.tail.prev).to.equal(toInsert);
+			expect(list.length).to.equal(previousLength + 1);
 		});
 
-		it('should insert an item in the middle of the list', () => {
+		it('should insert an item at the end of a list of length 1', () =>{
+			let list = new LinkedList(new ListNode(1));
+                        let previousLength = list.length;
+                        let previousTail = list.tail;
 
+                        let toInsert = new ListNode(2);
+                        list.insert(toInsert);
+
+			expect(list.tail).to.equal(toInsert);
+			expect(list.tail.prev).to.equal(list.head);
+			expect(list.head.next).to.equal(toInsert);
+			expect(list.length).to.equal(previousLength +1);
 		});
 
-		it('should insert an item at the end of the list', () => {
+		it('should insert an item at the beginning of the list of length > 1', () => {
+			let list = makeList();
+			let toInsert = new ListNode(0);
+			let previousHead = list.head;
+			let previousLength = list.length;
+			list.insert(toInsert);
+
+			expect(list.head).to.equal(toInsert);
+			expect(list.head.next).to.equal(previousHead);
+			expect(previousHead.prev).to.equal(toInsert);
+			expect(list.length).to.equal(previousLength + 1);
+		});
+
+		it('should insert an item in the middle of the list of length > 1', () => {
+			let list = makeList();
+			let toInsert = new ListNode(3);
+			let previousLength = list.length;
+
+			list.insert(toInsert);
+
+			expect(list._getIndex(toInsert)).to.equal(2);
+			expect(list.head.next.next).to.equal(toInsert);
+			expect(toInsert.prev).to.equal(list.head.next);
+			expect(toInsert.next).to.equal(list.tail);
+			expect(list.tail.prev).to.equal(toInsert);
+			expect(list.length).to.equal(previousLength + 1);
+		});
+
+		it('should insert an item at the end of the list of length > 1', () => {
 
 		});
 	});

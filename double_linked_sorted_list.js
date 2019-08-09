@@ -10,33 +10,32 @@ class LinkedList {
 		this.length = 1;
 	}
 
-	insertValue(toInsert) {
-		let indexToInsertAt = this._getIndex(toInsert);
-		
-		let ref = this.head;
-		if(indexToInsertAt < 0) {
-			// insert at the end of the list
-			this.tail.next = toInsert;
-			toInsert.prev = this.tail;
-			this.tail = toInsert;
-		}
-		else if(indexToInsertAt === 0) {
-			// insert at begining of list
+	insert(toInsert) {
+		if(this.head.compareTo(toInsert) >= 0) {
 			this.head.prev = toInsert;
 			toInsert.next = this.head;
 			this.head = toInsert;
 		}
+		else if (this.tail.compareTo(toInsert) < 0) {
+			this.tail.next = toInsert;
+			toInsert.prev  = this.tail;
+			this.tail = toInsert;
+		}
 		else {
+			let indexToInsertAt = this._getIndex(toInsert);
+			let ref = this.head;
 			//get the reference
 			//can be more efficient if we chose the shortest end of the list to iterate from from. beginning or end.
-			for(let i = 0; i <= indexToInsertAt; i++) {
+			for(let i = 0; i < indexToInsertAt; i++) {
 				ref = ref.next;
 			}
 
-			toInsert.next = ref;
-			toInsert.prev = ref.prev;
+			let prev = ref.prev;
+
+			prev.next = toInsert;
 			ref.prev = toInsert;
-			toInsert.prev.next = toInsert;
+			toInsert.next = ref;
+			toInsert.prev = prev
 		}
 		this.length++;
 	}
@@ -105,6 +104,27 @@ class LinkedList {
 			index++;
                 }	
 		return index;
+	}
+
+	toString() {
+		let listString = `${this.head.value}`;
+
+		let ref = this.head.next;
+
+		while(ref) {
+			listString += ` -> ${ref.value}`;
+			ref = ref.next;
+		}
+
+		let listStringBack = `${this.tail.value}`;
+		ref = this.tail.prev;
+
+		while(ref) {
+			listStringBack += ` -> ${ref.value}`;
+			ref = ref.prev;
+		}
+
+		return `List Forward: ${listString} ... List Backward: ${listStringBack}`;
 	}
 
 }
