@@ -40,35 +40,35 @@ class LinkedList {
 		this.length++;
 	}
 
-	deleteValue(toDelete) {
+	delete(toDelete) {
+
+		if(this.length === 0) {
+			return;
+		}
                 if(this.head.compareTo(toDelete) === 0) {
 			if(this.length === 1) {
-				// reassign tail
-				// delete tail
+				this.head = undefined;
+				this.tail = undefined;
 			}
-			// reassign head
-                        // delete head
+			else {
+				this.head = this.head.next;
+				this.head.prev = undefined;
+			}
                 }
 		else if (this.tail.compareTo(toDelete) === 0) {
-			// delete this.tail
-			// reassign tail to tail.prev
+			this.tail = this.tail.prev;
+			this.tail.next = undefined;
 		}
 		else {
-			let indexToDelete = this._getIndex(toDelte);
-			let ref = this.head;
- 			if (indexToDelete === -1) {
-				return;
-			}
-			else if (indexToDelete === 0) {
-				// delete head
-			}
-			else if (indexToDelete === this.length - 1) {
-				// delete tail
-			}
-
-			for(let i = 0; i <= indexToDelete; i++) {
+			let indexToDelete = this._getIndex(toDelete);
+                        let ref = this.head;
+			for(let i = 0; i < indexToDelete; i++) {
 				ref = ref.next;
 			}
+			if(ref.compareTo(toDelete) != 0) {
+				return;
+			}
+
 			let prev = ref.prev;
 			let next = ref.next;
 			prev.next = next;
@@ -78,6 +78,7 @@ class LinkedList {
 	}
 
 	// this could be more efficient by using a binary search
+	// this is not a true get index in that if it cannot find a value within the range of head and node, then it will return the index at which that value SHOULD be.
 	_getIndex (node) {
 		// if node value is less than head or greater than tail, it isn't in the list.
                 let headCompareVal = this.head.compareTo(node);

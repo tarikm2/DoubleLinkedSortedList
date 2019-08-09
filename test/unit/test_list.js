@@ -180,20 +180,67 @@ describe('doubly linked sorted list', () => {
 	});
 
 	describe('delete an item from the list', () => {
-		it('should delete an item at the beginning of the list', () => {
 
+		it('should delete the only item in a list', () => {
+			let toDelete = new ListNode(1);
+			let list = new LinkedList(toDelete);
+			list.delete(toDelete);
+
+			expect(list.length).to.equal(0);
+			expect(list.head).to.equal(undefined);
+			expect(list.tail).to.equal(undefined);
+		});
+
+		it('should delete the head of a list of length > 1', () => {
+			let list = makeList();
+			let toDelete = new ListNode(1);
+			let previousLength = list.length;
+			list.delete(toDelete);
+
+			expect(list.head.value).to.equal(2);
+			expect(list.head.prev).to.equal(undefined);
+			expect(list.length).to.equal(previousLength - 1);
+		});
+
+		it('should delete the tail of a list of length > 1', () => {
+			let list = makeList();
+			let toDelete = new ListNode(4);
+			let previousLength = list.length;
+
+			list.delete(toDelete);
+
+			expect(list.tail.value).to.equal(2);
+			expect(list.tail.next).to.equal(undefined);
+			expect(list.length).to.equal(previousLength -1);
 		});
 
 		it('should delete an item in the middle of the list', () => {
+			let list = makeList();
+			let toDelete = new ListNode(2);
+			let previousLength = list.length;
 
+			list.delete(toDelete);
+
+			expect(list.head.value).to.equal(1);
+			expect(list.tail.value).to.equal(4);
+			expect(list.head.next).to.equal(list.tail);
+			expect(list.tail.prev).to.equal(list.head);
+			expect(list.length).to.equal(previousLength - 1);
 		});
 
-		it('should delete an item at the end of the list', () => {
-
-		});
 
 		it('should not delete any items because item not in list', () => {
-		
+			let list = makeList();
+                        let toDelete = new ListNode(3);
+                        let previousLength = list.length;
+
+                        list.delete(toDelete);
+
+                        expect(list.head.value).to.equal(1);
+                        expect(list.tail.value).to.equal(4);
+			expect(list.head.next.value).to.equal(2);
+                        expect(list.tail.prev.value).to.equal(2);
+                        expect(list.length).to.equal(previousLength);
 		});
 	});
 });
