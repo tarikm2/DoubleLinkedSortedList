@@ -164,7 +164,18 @@ describe('doubly linked sorted list', () => {
 		});
 
 		it('should insert an item at the end of the list of length > 1', () => {
+                       	let list = makeList();
+                        let toInsert = new ListNode(5);
+                        let previousLength = list.length;
 
+                        list.insert(toInsert);
+
+                        expect(list._getIndex(toInsert)).to.equal(3);
+                        expect(list.head.next.next.next).to.equal(toInsert);
+                        expect(toInsert.prev).to.equal(list.head.next.next);
+                        expect(toInsert.next).to.equal(undefined);
+                        expect(list.tail).to.equal(toInsert);
+                      	expect(list.length).to.equal(previousLength + 1);
 		});
 	});
 

@@ -129,16 +129,6 @@ class LinkedList {
 
 }
 
-class Node {
-	constructor (val) {
-		this.value = val;
-	}
-
-	compareTo(other) {
-		return this.value - other.value;
-	}
-}
-
 module.exports = {
 	LinkedList
 };
